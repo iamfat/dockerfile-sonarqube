@@ -3,7 +3,7 @@ MAINTAINER jia.huang@geneegroup.com
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y curl unzip openjdk-7-jre-headless mysql-client
+RUN apt-get update && apt-get install -y procps curl unzip openjdk-7-jre-headless mysql-client
 
 # Install SonarQube Server
 RUN curl -sLo sonarqube-4.4.zip http://dist.sonar.codehaus.org/sonarqube-4.4.zip && \
