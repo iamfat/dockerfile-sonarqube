@@ -1,7 +1,9 @@
 #!/bin/sh
 
-echo "DBUSER=$DBUSER, DBPASS=$DBPASS"
+echo "mysql://$DBUSER:$DBPASS@$DBHOST/sonar"
 
+sed -i 's/^#sonar.jdbc.url=jdbc:mysql:\/\/\(.*\):3306/sonar.jdbc.url=jdbc:mysql:\/\/$DBHOST:$DBPORT/g' \
+    /usr/local/share/sonarqube/conf/sonar.properties
 sed -i "s/^sonar.jdbc.username=sonar/sonar.jdbc.username=$DBUSER/g" \
     /usr/local/share/sonarqube/conf/sonar.properties && \
 sed -i "s/^sonar.jdbc.password=sonar/sonar.jdbc.password=$DBPASS/g" \
