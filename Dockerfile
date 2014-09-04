@@ -15,6 +15,5 @@ RUN curl -sLo sonarqube-4.4.zip http://dist.sonar.codehaus.org/sonarqube-4.4.zip
 ENV DBUSER genee
 ENV DBPASS 83719730
 
-ADD run.sh /run.sh
-
-CMD /run.sh
+ADD start /start
+CMD ["/start"]

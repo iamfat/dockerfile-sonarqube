@@ -8,5 +8,6 @@ sed -i "s/^sonar.jdbc.password=sonar/sonar.jdbc.password=$DBPASS/g" \
     /usr/local/share/sonarqube/conf/sonar.properties
 
 echo "SET GLOBAL binlog_format = 'MIXED';" | mysql -u $DBUSER -p$DBPASS -h mysql
+echo "CREATE DATABASE IF NOT EXISTS sonar DEFAULT CHARACTER SET 'utf8'" | mysql -u $DBUSER -p$DBPASS -h mysql
 
 /usr/local/share/sonarqube/bin/linux-x86-64/sonar.sh console
