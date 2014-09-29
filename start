@@ -2,6 +2,8 @@
 
 echo "mysql://$DBUSER:$DBPASS@$DBHOST/sonar"
 
+sed -i "s/^sonar.jdbc.url=jdbc:h2:/#sonar.jdbc.url=jdbc:h2:/g" \
+    /usr/local/share/sonarqube/conf/sonar.properties
 sed -i "s/^#sonar.jdbc.url=jdbc:mysql:\/\/\(.*\):3306/sonar.jdbc.url=jdbc:mysql:\/\/$DBHOST:$DBPORT/g" \
     /usr/local/share/sonarqube/conf/sonar.properties
 sed -i "s/^sonar.jdbc.username=sonar/sonar.jdbc.username=$DBUSER/g" \
@@ -9,7 +11,6 @@ sed -i "s/^sonar.jdbc.username=sonar/sonar.jdbc.username=$DBUSER/g" \
 sed -i "s/^sonar.jdbc.password=sonar/sonar.jdbc.password=$DBPASS/g" \
     /usr/local/share/sonarqube/conf/sonar.properties
 
-echo "SET GLOBAL binlog_format = 'MIXED';" | mysql -u $DBUSER -p$DBPASS -h $DBHOST -P $DBPORT
-echo "CREATE DATABASE IF NOT EXISTS sonar DEFAULT CHARACTER SET 'utf8';" | mysql -u $DBUSER -p$DBPASS -h $DBHOST -P $DBPORT
+printf "SET GLOBAL binlog_format = 'MIXED';\nCREATE DATABASE IF NOT EXISTS sonar DEFAULT CHARACTER SET 'utf8';\n" | mysql -u $DBUSER -p$DBPASS -h $DBHOST -P $DBPORT
 
 /usr/local/share/sonarqube/bin/linux-x86-64/sonar.sh console
